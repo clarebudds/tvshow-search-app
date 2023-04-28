@@ -6,14 +6,17 @@ form.addEventListener('submit', async function (e) {
     const res = await axios.get(`https://api.tvmaze.com/search/shows`, config);
     makeImages(res.data)
     form.elements.query.value = '';
-})
+});
 
 const makeImages = (shows) => {
+    const gallery = document.querySelector('.gallery');
+    gallery.innerHTML = ''; // clear existing images from the gallery
     for (let result of shows) {
         if (result.show.image) {
             const img = document.createElement('IMG');
             img.src = result.show.image.medium;
-            document.body.append(img)
+            gallery.append(img); // add images to the gallery section
         }
     }
 }
+
